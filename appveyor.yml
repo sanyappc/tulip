@@ -41,12 +41,15 @@ build_script:
 # get the Tulip version for deployment
 after_build:
   - ps: "$env:TULIP_VERSION = (((Get-Content ($env:APPVEYOR_BUILD_FOLDER + '/build/library/tulip-core/include/tulip/TulipRelease.h') | %{ if ($_ -match '^#   define TULIP_VERSION.*$') { $_; } }) -replace '#   define TULIP_VERSION ', '') -replace '\"', '')"
-  - ps: "7z a build.zip ($env:APPVEYOR_BUILD_FOLDER + '/build/*')"
+  - ps: "7z a tulip_dependencies.zip C:/tulip_dependencies/*"
+  - ps: "7z a tulip.zip ($env:APPVEYOR_BUILD_FOLDER + '/*')"
 
 # set generated installers as artifacts to deploy
 artifacts:
-  - path: build.zip
-    name: build
+  - path: tulip_dependencies.zip
+    name: tulip_dependencies
+  - path: tulip.zip
+    name: tulip
 
 # no deployment
 deploy: off
