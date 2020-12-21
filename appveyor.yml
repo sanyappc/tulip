@@ -22,26 +22,6 @@ init:
 # define build jobs
 environment:
   matrix:
-
-    # 64 bits GCC core build
-    - MSYS2_ARCH: x86_64
-      MSYSTEM: MINGW64
-      PYTHON2_HOME: "C:/Python27-x64"
-      PYTHON3_HOME: "C:/Python38-x64"
-
-    # 64 bits GCC complete build
-    - MSYS2_ARCH: x86_64
-      MSYSTEM: MINGW64
-      PYTHON2_HOME: "C:/Python27-x64"
-      PYTHON3_HOME: "C:/Python38-x64"
-
-    # 64 bits MSVC core build
-    - CMAKE_VS_GENERATOR: "Visual Studio 16 2019"
-      MSVC_PLATFORM: "x64"
-      MSVC_PLATFORM_TOOLSET: "v142"
-      QT5_DIR: "C:/Qt/5.15/msvc2019_64"
-      PYTHON_EXECUTABLE: "C:/Python38-x64/python.exe"
-
     # 64 bits MSVC complete build
     - CMAKE_VS_GENERATOR: "Visual Studio 16 2019"
       MSVC_PLATFORM: "x64"
@@ -61,18 +41,12 @@ build_script:
 # get the Tulip version for deployment
 after_build:
   - ps: "$env:TULIP_VERSION = (((Get-Content ($env:APPVEYOR_BUILD_FOLDER + '/build/library/tulip-core/include/tulip/TulipRelease.h') | %{ if ($_ -match '^#   define TULIP_VERSION.*$') { $_; } }) -replace '#   define TULIP_VERSION ', '') -replace '\"', '')"
+  - ps: "7z a build.zip ($env:APPVEYOR_BUILD_FOLDER + '/build/*')"
 
 # set generated installers as artifacts to deploy
 artifacts:
-  - path: build\*.exe
-    name: tulip_installers
+  - path: build.zip
+    name: build
 
 # no deployment
 deploy: off
-
-# send build status notifications to tulipdev mailing list
-notifications:
-  - provider: Email
-    to:
-      - tulipdev@labri.fr
-    on_build_success: false
