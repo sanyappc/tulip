@@ -22,12 +22,21 @@ init:
 # define build jobs
 environment:
   matrix:
+    # 32 bits MSVC complete build
+    - CMAKE_VS_GENERATOR: "Visual Studio 16 2019"
+      MSVC_PLATFORM: "Win32"
+      MSVC_PLATFORM_TOOLSET: "v142"
+      QT5_DIR: "C:/Qt/5.15/msvc2019"
+      PYTHON_EXECUTABLE: "C:/Python38/python.exe"
+      _CL_: "/MT"
+ 
     # 64 bits MSVC complete build
     - CMAKE_VS_GENERATOR: "Visual Studio 16 2019"
       MSVC_PLATFORM: "x64"
       MSVC_PLATFORM_TOOLSET: "v142"
       QT5_DIR: "C:/Qt/5.15/msvc2019_64"
       PYTHON_EXECUTABLE: "C:/Python38-x64/python.exe"
+      _CL_: "/MT"
 
 # nothing to build if a non-windows platform
 # is specified at the end of the commit message
