@@ -42,14 +42,14 @@ build_script:
 after_build:
   - ps: "$env:TULIP_VERSION = (((Get-Content ($env:APPVEYOR_BUILD_FOLDER + '/build/library/tulip-core/include/tulip/TulipRelease.h') | %{ if ($_ -match '^#   define TULIP_VERSION.*$') { $_; } }) -replace '#   define TULIP_VERSION ', '') -replace '\"', '')"
   - ps: "7z a tulip_dependencies.zip C:/tulip_dependencies/*"
-  - ps: "7z a tulip.zip ($env:APPVEYOR_BUILD_FOLDER + '/*')"
+  - ps: "7z a tulip_build.zip ($env:APPVEYOR_BUILD_FOLDER + '/build/*')"
 
 # set generated installers as artifacts to deploy
 artifacts:
   - path: tulip_dependencies.zip
     name: tulip_dependencies
-  - path: tulip.zip
-    name: tulip
+  - path: tulip_build.zip
+    name: tulip_build
 
 # no deployment
 deploy: off
