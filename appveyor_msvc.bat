@@ -31,7 +31,7 @@ cd zlib-1.2.11
 md build && cd build
 cmake -G "%CMAKE_VS_GENERATOR%" -DBUILD_SHARED_LIBS=ON -DCMAKE_INSTALL_PREFIX="C:/tulip_dependencies" ..
 if %errorlevel% neq 0 exit /b %errorlevel%
-msbuild INSTALL.vcxproj /m /clp:ErrorsOnly /p:Configuration=%CONFIGURATION% %CLCACHE_MSBUILD_CONF%
+msbuild INSTALL.vcxproj /m /clp:ErrorsOnly /p:Configuration=Release %CLCACHE_MSBUILD_CONF%
 if %errorlevel% neq 0 exit /b %errorlevel%
 
 rem get, compile and install cppunit
@@ -39,7 +39,7 @@ cd C:/tulip_dependencies
 git clone git://anongit.freedesktop.org/git/libreoffice/cppunit/
 if %errorlevel% neq 0 exit /b %errorlevel%
 cd cppunit/src
-msbuild CppUnitLibraries2010.sln /m /clp:ErrorsOnly /p:Configuration=%CONFIGURATION% /p:Platform=%MSVC_PLATFORM% /p:PlatformToolset=%MSVC_PLATFORM_TOOLSET% %CLCACHE_MSBUILD_CONF%
+msbuild CppUnitLibraries2010.sln /m /clp:ErrorsOnly /p:Configuration=Release /p:Platform=%MSVC_PLATFORM% /p:PlatformToolset=%MSVC_PLATFORM_TOOLSET% %CLCACHE_MSBUILD_CONF%
 if %errorlevel% neq 0 exit /b %errorlevel%
 xcopy C:\tulip_dependencies\cppunit\include C:\tulip_dependencies\include /S /Y
 xcopy C:\tulip_dependencies\cppunit\lib C:\tulip_dependencies\lib /S /Y
@@ -62,7 +62,7 @@ cd freetype-2.10.2
 md build && cd build
 cmake -G "%CMAKE_VS_GENERATOR%" -DCMAKE_INSTALL_PREFIX="C:/tulip_dependencies" ..
 if %errorlevel% neq 0 exit /b %errorlevel%
-msbuild INSTALL.vcxproj /m /clp:ErrorsOnly /p:Configuration=%CONFIGURATION% %CLCACHE_MSBUILD_CONF%
+msbuild INSTALL.vcxproj /m /clp:ErrorsOnly /p:Configuration=Release %CLCACHE_MSBUILD_CONF%
 if %errorlevel% neq 0 exit /b %errorlevel%
 
 rem get, compile and install glew
@@ -73,7 +73,7 @@ if %errorlevel% neq 0 exit /b %errorlevel%
 cd glew-2.2.0/build/cmake
 cmake -G "%CMAKE_VS_GENERATOR%" -DCMAKE_INSTALL_PREFIX="C:/tulip_dependencies" .
 if %errorlevel% neq 0 exit /b %errorlevel%
-msbuild INSTALL.vcxproj /m /clp:ErrorsOnly /p:Configuration=%CONFIGURATION% %CLCACHE_MSBUILD_CONF%
+msbuild INSTALL.vcxproj /m /clp:ErrorsOnly /p:Configuration=Release %CLCACHE_MSBUILD_CONF%
 if %errorlevel% neq 0 exit /b %errorlevel%
 
 goto tulip_build
