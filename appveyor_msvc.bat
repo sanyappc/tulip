@@ -7,7 +7,7 @@ rem We build Tulip in two phases (core build then complete build)
 rem to avoid AppVeyor build timeouts. Object files generated during
 rem the core build will be made available for the complete build
 rem thanks to the use of clcache.
-set /a TULIP_BUILD_CORE_ONLY = 0
+set /a TULIP_BUILD_CORE_ONLY = 1
 echo TULIP_BUILD_CORE_ONLY=%TULIP_BUILD_CORE_ONLY%
 
 rem let's compile clcache in order to speedup incremental builds
